@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.booleworks</groupId>
+  <artifactId>kjobs-examples</artifactId>
+  <version>1.0.0-RC2</version>
+  <packaging>jar</packaging>
+
+  <name>KJobs Examples</name>
+  <description>A list of examples for KJobs Usage (mostly for the documentation)</description>
+  <url>https://github.com/booleworks/kjobs-examples</url>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/license/mit</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Christoph Zengler</name>
+      <organization>BooleWorks GmbH</organization>
+      <email>christoph.zengler@booleworks.com</email>
+    </developer>
+    <developer>
+      <name>Steffen Hildebrandt</name>
+      <organization>BooleWorks GmbH</organization>
+      <email>steffen.hildebrandt@booleworks.com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/booleworks/kjobs-examples.git</url>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <kotlin.code.style>official</kotlin.code.style>
+    <kotlin.compiler.jvmTarget>11</kotlin.compiler.jvmTarget>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <version.kotlin>1.8.21</version.kotlin>
+    <version.kjobs>1.0.0-RC3</version.kjobs>
+    <version.ktor>2.3.0</version.ktor>
+    <version.logback>1.2.12</version.logback>
+
+    <version.maven-compiler>3.11.0</version.maven-compiler>
+    <version.maven-source>3.2.1</version.maven-source>
+    <version.detekt>1.22.0</version.detekt>
+  </properties>
+
+  <build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+
+    <plugins>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${version.kotlin}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jvmTarget>11</jvmTarget>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${version.maven-compiler}</version>
+      </plugin>
+
+      <!-- Compile jar with sources -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${version.maven-source}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.ozsie</groupId>
+        <artifactId>detekt-maven-plugin</artifactId>
+        <version>${version.detekt}</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <config>detekt.yml</config>
+          <excludes>**/test/**;**/generated/**gg</excludes>
+          <report>
+            <report>txt:target/detekt/detekt.txt</report>
+            <report>html:target/detekt/detekt.html</report>
+          </report>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Kotlin -->
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${version.kotlin}</version>
+    </dependency>
+
+    <!-- KJobs -->
+    <dependency>
+      <groupId>com.booleworks</groupId>
+      <artifactId>kjobs</artifactId>
+      <version>${version.kjobs}</version>
+    </dependency>
+
+    <!-- Ktor -->
+    <dependency>
+      <groupId>io.ktor</groupId>
+      <artifactId>ktor-server-cio-jvm</artifactId>
+      <version>${version.ktor}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${version.logback}</version>
+    </dependency>
+  </dependencies>
+</project>
