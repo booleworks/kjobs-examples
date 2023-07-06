@@ -1,0 +1,23 @@
+### Finished jobs can be deleted manually using the `delete` resource
+POST {{host}}/additional-routes-example/submit
+
+500
+
+> {%
+    client.global.set("UUID", response.body)
+%}
+
+### Wait for the job to be in status `SUCCESS`
+GET {{host}}/additional-routes-example/status/{{UUID}}
+
+### Verify that the result is available
+GET {{host}}/additional-routes-example/result/{{UUID}}
+
+### Now delete the job (including the input and result stored in the persistence)
+DELETE {{host}}/additional-routes-example/delete/{{UUID}}
+
+### Now the result will be not available anymore
+GET {{host}}/additional-routes-example/result/{{UUID}}
+
+### Neither the status
+GET {{host}}/additional-routes-example/status/{{UUID}}

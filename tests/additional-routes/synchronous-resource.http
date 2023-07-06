@@ -1,0 +1,4 @@
+### This is a synchronous wrapper around the asynchronous API of KJobs. Internally, it will submit a new job and wait until it finishes.
+POST {{host}}/additional-routes-example/synchronous
+
+500

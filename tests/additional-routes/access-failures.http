@@ -1,0 +1,14 @@
+### If a computation fails, the result can be retrieved using the `failure` resource
+POST {{host}}/additional-routes-example/submit
+
+This payload will cause a failure, since it cannot be parsed to an Integer
+
+> {%
+    client.global.set("UUID", response.body)
+%}
+
+### The status will finally end in `FAILURE`
+GET {{host}}/additional-routes-example/status/{{UUID}}
+
+### Check the error message when the status is in `FAILURE`
+GET {{host}}/additional-routes-example/failure/{{UUID}}

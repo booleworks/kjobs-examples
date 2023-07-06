@@ -1,0 +1,11 @@
+### We can get additional information about a job using the `info` resource
+POST {{host}}/additional-routes-example/submit
+
+2000
+
+> {%
+    client.global.set("UUID", response.body)
+%}
+
+### Fetch information about the job
+GET {{host}}/additional-routes-example/info/{{UUID}}

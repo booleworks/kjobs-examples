@@ -1,0 +1,17 @@
+### A job can be cancelled using the `cancel` resource
+POST {{host}}/additional-routes-example/submit
+
+20000
+
+> {%
+    client.global.set("UUID", response.body)
+%}
+
+### Wait for the job to be in status `RUNNING`
+GET {{host}}/additional-routes-example/status/{{UUID}}
+
+### Now cancel the job
+POST {{host}}/additional-routes-example/cancel/{{UUID}}
+
+### Now the job should be in status `CANCELLED`
+GET {{host}}/additional-routes-example/status/{{UUID}}

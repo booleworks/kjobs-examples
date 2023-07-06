@@ -1,5 +1,6 @@
-package com.booleworks.kjobs.examples
+package com.booleworks.kjobs.examples.basicusage
 
+import com.booleworks.kjobs.ExampleConfig
 import com.booleworks.kjobs.api.JobFramework
 import com.booleworks.kjobs.api.persistence.hashmap.HashMapDataPersistence
 import com.booleworks.kjobs.api.persistence.hashmap.HashMapJobPersistence
@@ -13,9 +14,9 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 
-// Main method to set up the Ktor Webservice on localhost:8080
+// Main method to set up the Ktor Webservice (by default on localhost:8080)
 fun main() {
-    embeddedServer(CIO, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
+    embeddedServer(CIO, port = ExampleConfig.PORT, host = ExampleConfig.HOST, module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
@@ -23,12 +24,12 @@ fun Application.module() {
     val jobPersistence = HashMapJobPersistence()
     val dataPersistence = HashMapDataPersistence<String, String>(jobPersistence)
 
-    // initialize Webservice routing
-    routing {
-        // create a basic route 'optimization'
-        route("computation") {
-            // initialize the KJobs JobFramework
-            JobFramework(myInstanceName = "ME", jobPersistence, application = this@module) {
+    // initialize the KJobs JobFramework
+    JobFramework(myInstanceName = "ME", jobPersistence) {
+        // initialize Webservice routing
+        routing {
+            // create a route 'simple-computation'
+            route("simple-computation") {
                 // add an API
                 addApi(
                     // name of the job type, only used internally to distinguish different APIs
@@ -37,12 +38,13 @@ fun Application.module() {
                     route = this@route,
                     // the persistence where jobs are store (together with their inputs and results)
                     dataPersistence,
-                    // how the service should accept incoming requests to the 'submit' method (will usually be some object via JSON)
+                    // how the service should accept incoming requests to the 'submit' method, here we just receive some plain text
                     inputReceiver = { call.receiveText() },
-                    // how the service should return the result (will usually be some object via JSON)
+                    // how the service should return the result, here we return the result as plain text
                     resultResponder = { call.respondText(it) },
-                    // how the actual computation is performed
-                    { _, input -> ComputationResult.Success<String>("Result of $input") })
+                    // how the actual computation is performed, the result must be wrapped in a ComputationResult
+                    { _, input -> ComputationResult.Success<String>("Result of '$input'") }
+                )
             }
         }
     }

@@ -1,0 +1,16 @@
+### Submit a new computation with the input 'Hello World!'
+POST {{host}}/simple-computation/submit
+
+Hello World!
+
+> {%
+    // the computation returns a UUID which we're storing with the following JS snippet to make it available in the next calls
+    client.global.set("UUID", response.body)
+%}
+
+### Check the status of the computation until it is 'SUCCESS'
+### (since the computation is really fast, you will most likely only see it in status 'CREATED' or 'SUCCESS' but not in 'RUNNING')
+GET {{host}}/simple-computation/status/{{UUID}}
+
+### Check the result of the computation
+GET {{host}}/simple-computation/result/{{UUID}}
