@@ -40,7 +40,7 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
 
-    <version.kotlin>1.8.21</version.kotlin>
+    <version.kotlin>1.9.0</version.kotlin>
     <version.kjobs>${project.version}</version.kjobs>
     <version.ktor>2.3.0</version.ktor>
     <version.logback>1.2.12</version.logback>
@@ -109,11 +109,5 @@
 
     <!-- Optional dependencies which are only required depending on your use case -->
     <!-- ... -->
-
-    <dependency>
-      <groupId>io.ktor</groupId>
-      <artifactId>ktor-server-call-logging-jvm</artifactId>
-      <version>2.3.2</version>
-    </dependency>
   </dependencies>
 </project>

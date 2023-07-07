@@ -10,6 +10,8 @@ Each example has its own package below `com.booleworks.kjobs.examples` which con
 
 Simply start the web service using the `main` function of the example (e.g. in `BasicUsage.kt`). By default, the web service will be deployed on `localhost:8080` which you can change globally in the `ExampleConfig` object.
 
+If you want to start the service from the command line, use `mvn exec:java -Dexec.mainClass="com.booleworks.kjobs.examples.basicusage.BasicUsageKt"`.
+
 ### Running HTTP Requests
 
 The `tests` folder contains a couple of HTTP requests for each example. The files are designed to be used with the IntelliJ HTTP Client, but they can easily be transformed to be used in other tools like `httpie`.

@@ -2,3 +2,16 @@
 POST {{host}}/additional-routes-example/synchronous
 
 500
+
+
+### We have set an internal limit of 10 seconds, if the computation takes too long, the call will fail
+POST {{host}}/additional-routes-example/synchronous
+
+12000
+
+> {%
+    client.global.set("UUID-from-background-job", response.body.slice(-37, -1))
+%}
+
+### As the result message indicates, you may still be able to retrieve the result later via the given uuid
+GET {{host}}/additional-routes-example/result/{{UUID-from-background-job}}
