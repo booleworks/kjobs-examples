@@ -1,6 +1,6 @@
 # KJobs Examples
 
-This is a collection of examples for the [KJobs Framework](https://github.com/booleworks/kjobs).
+This is a collection of examples for the [KJobs Framework](https://github.com/booleworks/kjobs). *It is currently WIP, more examples will follow in the future.*
 
 ## Running the Examples
 
